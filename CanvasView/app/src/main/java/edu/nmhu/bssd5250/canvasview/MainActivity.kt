@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.appcompat.widget.LinearLayoutCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,8 +17,40 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         //setContentView(CanvasView(this))
         val canvasView = CanvasView(this)
-        setContentView(canvasView)
-        hideSystemUI(canvasView)
+
+        val button = Button(this).apply {
+            text = context.getString(R.string.clear)
+            setOnClickListener {
+                canvasView.clearAll()
+            }
+        }
+
+        val bgImg = ImageView(this).apply {
+            layoutParams = LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
+            setImageResource(R.drawable.will)
+        }
+
+        val frameLayout = FrameLayout(this).apply {
+            layoutParams = LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT)
+            addView(bgImg)
+            addView(canvasView)
+        }
+
+        val ll = LinearLayoutCompat(this).apply {
+            orientation = LinearLayoutCompat.VERTICAL
+            layoutParams = LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT)
+            addView(button)
+            addView(frameLayout)
+        }
+
+        setContentView(ll)
+        hideSystemUI(ll)
     }
 
     private fun hideSystemUI(view:View) {

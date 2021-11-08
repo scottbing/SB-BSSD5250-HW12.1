@@ -1,10 +1,7 @@
 package edu.nmhu.bssd5250.canvasview
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -36,6 +33,7 @@ class CanvasView(context: Context) : View(context) {
         strokeJoin = Paint.Join.ROUND // default: MITER
         strokeCap = Paint.Cap.ROUND // default: BUTT
         strokeWidth = STROKE_WIDTH // default: Hairline-width (really thin)
+        blendMode = BlendMode.XOR
     } // end paint value
 
     private var path = Path()
