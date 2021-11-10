@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CanvasView</string>
+    <string name="clear">Clear</string>
+    <string name="set_stroke_color">Set Stroke Color</string>
+    <string name="highlight_text">Highlight Text</string>
+    <string name="draw_on_image">Draw on Image</string>
+</resources>
