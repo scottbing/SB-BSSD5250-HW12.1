@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MediaPlayer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clear">Clear</string>
+    <string name="set_stroke_color">Set Stroke Color</string>
+    <string name="highlight_text">Highlight Text</string>
+    <string name="draw_on_image">Draw on Image</string>
+</resources>
