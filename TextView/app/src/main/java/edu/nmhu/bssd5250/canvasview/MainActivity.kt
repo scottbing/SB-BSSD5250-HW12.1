@@ -39,6 +39,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val highLitTxt = Button(this).apply {
+            text = context.getString(R.string.highlight_text)
+            setOnClickListener {
+                highLightText = true
+            }
+        }
+
+        val drawOnImage = Button(this).apply {
+            text = context.getString(R.string.draw_on_image)
+            setOnClickListener {
+                drawOnGraphic = true
+            }
+        }
+
+        val ch = LinearLayoutCompat(this@MainActivity).apply {
+            orientation = LinearLayoutCompat.HORIZONTAL
+            addView(highLitTxt)
+            addView(drawOnImage)
+        }
+
         val edTxt = EditText(this).apply {
             hint = "Enter Hex Color without #"
         }
@@ -57,86 +77,12 @@ class MainActivity : AppCompatActivity() {
             addView(setStrokeColor)
         }
 
-        val drawOnImage = Button(this).apply {
-            text = context.getString(R.string.draw_on_image)
-            layoutParams = LinearLayoutCompat.LayoutParams(
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
-            setOnClickListener {
-                drawOnGraphic = true
-                val bgImg = ImageView(this@MainActivity).apply {
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
-                    setImageResource(R.drawable.will)
-                }
-                val ch = LinearLayoutCompat(this@MainActivity).apply {
-                    orientation = LinearLayoutCompat.HORIZONTAL
-                    addView(highLitTxt)
-                    addView(drawOnImage)
-                }
-                val drawLayout = FrameLayout(this@MainActivity).apply {
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-                    addView(bgImg)
-                    addView(drawView)
-                }
-                val ll = LinearLayoutCompat(this@MainActivity).apply {
-                    orientation = LinearLayoutCompat.VERTICAL
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT
-                    )
-                    addView(clrScreen)
-                    addView(ch)
-                    addView(sc)
-                    addView(drawLayout)
-                }
-                setContentView(ll)
-                hideSystemUI()
-            }
+        val bgImg = ImageView(this@MainActivity).apply {
+            setImageResource(R.drawable.will)
         }
 
-        val highLitTxt = Button(this).apply {
-            text = context.getString(R.string.highlight_text)
-            layoutParams = LinearLayoutCompat.LayoutParams(
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
-            setOnClickListener {
-                highLightText = true
-                val txView = TextView(this@MainActivity).apply {
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-                    text = readAsset(context,"text_view.txt")
-                }
-                val ch = LinearLayoutCompat(this@MainActivity).apply {
-                    orientation = LinearLayoutCompat.HORIZONTAL
-                    addView(highLitTxt)
-                    addView(drawOnImage)
-                }
-                val textLayout = FrameLayout(this@MainActivity).apply {
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-                    addView(txView)
-                    addView(txtView)
-                }
-                val ll = LinearLayoutCompat(this@MainActivity).apply {
-                    orientation = LinearLayoutCompat.VERTICAL
-                    layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT
-                    )
-                    addView(clrScreen)
-                    addView(ch)
-                    addView(sc)
-                    addView(textLayout)
-                }
-                setContentView(ll)
-                hideSystemUI()
-            }
+        val txView = TextView(this@MainActivity).apply {
+            text = readAsset(context, "text_view.txt")
         }
 
         val ll = LinearLayoutCompat(this).apply {
@@ -145,15 +91,29 @@ class MainActivity : AppCompatActivity() {
                 LinearLayoutCompat.LayoutParams.MATCH_PARENT,
                 LinearLayoutCompat.LayoutParams.MATCH_PARENT
             )
-            val ch = LinearLayoutCompat(this@MainActivity).apply {
-                orientation = LinearLayoutCompat.HORIZONTAL
-                addView(highLitTxt)
-                addView(drawOnImage)
+            val drawLayout = FrameLayout(this@MainActivity).apply {
+                layoutParams = LinearLayoutCompat.LayoutParams(
+                    LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                    LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        .3F
+                )
+                addView(bgImg)
+                addView(drawView)
             }
+//            val textLayout = FrameLayout(this@MainActivity).apply {
+//                layoutParams = LinearLayoutCompat.LayoutParams(
+//                    LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+//                    LinearLayoutCompat.LayoutParams.MATCH_PARENT
+//                )
+//                addView(txView)
+//                addView(txtView)
+//            }
             addView(clrScreen)
             addView(ch)
             addView(sc)
-            }
+            addView(drawLayout)
+//            addView(textLayout)
+        }
         setContentView(ll)
         hideSystemUI()
     }
