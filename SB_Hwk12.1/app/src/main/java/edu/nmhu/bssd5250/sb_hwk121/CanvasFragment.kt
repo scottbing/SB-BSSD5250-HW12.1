@@ -10,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.lifecycle.ViewModelProvider
+import java.io.BufferedReader
 import java.io.InputStream
 
 private const val AUDIO_RES = "audio_file" //key for bundle
@@ -46,7 +49,7 @@ class CanvasFragment : Fragment() {
 
         val v:View = inflater.inflate(R.layout.fragment_canvas, container, false)
 
-        val clrScreen = Button().apply {
+        val clrScreen = Button(this).apply {
             text = context?.getString(R.string.clear)
             setOnClickListener {
                 if(drawOnGraphic) {
@@ -57,7 +60,7 @@ class CanvasFragment : Fragment() {
             }
         }
 
-        val highLitTxt: Button = Button(Context).apply {
+        val highLitTxt: Button = Button(this).apply {
             text = context.getString(R.string.highlight_text)
             setOnClickListener {
                 highLightText = true
@@ -89,6 +92,21 @@ class CanvasFragment : Fragment() {
             }
         }
 
+        val sc = LinearLayoutCompat(this).apply {
+            orientation = LinearLayoutCompat.HORIZONTAL
+            addView(edTxt)
+            addView(setStrokeColor)
+        }
+
+        val bgImg = ImageView(this).apply {
+            setImageResource(R.drawable.will)
+        }
+
+        val txView = TextView(this).apply {
+            text = readAsset(context, "text_view.txt")
+        }
+
+
         return v
     }
 
@@ -116,6 +134,14 @@ class CanvasFragment : Fragment() {
         mediaPlayer?.stop()
         mediaPlayer?.prepare()
     }
+
+    // taken from: https://stackoverflow.com/questions/47201829/read-a-text-assettext-file-from-assets-folder-as-a-string-in-kotlin-android/62878278
+    private fun readAsset(context: Context, fileName: String): String =
+        context
+            .assets
+            .open(fileName)
+            .bufferedReader()
+            .use(BufferedReader::readText)
 
     companion object {
 
